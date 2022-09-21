@@ -38,7 +38,7 @@ conda activate mrln_et
 ```sh
 python ${merlin_dir}/src/run_merlin.py ${merlin_dir} ${temp_dir} ${voice} ${in_text} ${out_wav}
 ```
-
+- vaata näidet failis `mrln.sh`
 
 - Hääled on saadaval https://www.eki.ee/~indrek/mrln_et Allalaaditud hääled tuleks lahti pakkida `voices/` kausta.
 
