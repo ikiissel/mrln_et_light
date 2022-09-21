@@ -1,0 +1,16 @@
+name: mrln_et
+channels:
+  - conda-forge
+  - pypi
+dependencies:
+  - python==3.6.8
+  - numpy==1.19.5
+  - mkl-service==2.4.0
+  - mkl
+  - pip  
+  - pip:
+      - scipy==1.5.4
+      - scikit-learn==0.24.2
+      - matplotlib==3.3.4
+      - theano==1.0.5
+      - bandmat==0.7

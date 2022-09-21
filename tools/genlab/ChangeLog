@@ -1,0 +1,37 @@
+2016-01-11  ikiissel
+	* ChangeLog, run.sh, eki_et_eva.htsvoice
+	  eki_et_eva voicefile'i veaparandus
+	  
+2016-01-18  ikiissel
+	* ChangeLog, run.sh, eki_et_lis.htsvoice synthts_et.cpp
+	  lisatud eki_et_lis.htsvoice, synthts_et.cpp väiksemad vigadeparandused
+
+2016-02-17 ikiissel
+	* ChangeLog eki_et_rna.htsvoice *.cpp hts-engine1.10
+	  hääled on treenitud HTS-2.3_for_HTK-3.4.1 (oli HTS-2.3alpha_for_HTK-3.4.1)
+	  hts_engine_API-1.08 on asendatud hts_engine_API-1.10
+	  massiliselt parandusi
+	
+2016-03-11 ikiissel	
+	* ChangeLog, htsvoices/*.htsvoice synthts.cpp lib/label/mklab.cpp
+	  question-faili vea parandus, kõik hääled on uuesti genereeritud,
+	  väiksemad veaparandused
+
+2016-03-22 ikiissel
+	* Changelog eki_et_evas.htsvoice eki_et_evasl.htsvoice
+	  evas = treeningbaasiks 11271 sõnavormi või ühendverbi
+	  evasl = eva + evas (eva - 2003 lausungit)
+	  
+2016-04-04 ikiissel	
+	* ChangeLog, synthts_et.cpp
+	  void ReadUTF8Text(CFSWString &text, const char *fn) veaparandus
+	  
+2016-04-04 ikiissel	
+	* ChangeLog, mklab.cpp
+	  väiksem fraseerimise veaparandus
+	  lisasin lüliti -utt lausungite väljaprindiks
+
+2016-05-03 ikiissel	
+	* ChangeLog, mklab.cpp
+	  eemaldasin foneemiloendist 3. välte j ja v. Mõelmad on kõnebaasis sedavõrd haruldused,
+	  et väljundis kuuleb nende asemel mingit r-i laadset heli.
