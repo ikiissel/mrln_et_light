@@ -2,3 +2,4 @@
 tools
 temp
 voices
+tools/**/.deps
