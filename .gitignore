@@ -3,3 +3,4 @@ tools
 temp
 voices
 tools/**/.deps
+tools/**/Makefile
