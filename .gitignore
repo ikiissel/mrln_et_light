@@ -14,4 +14,5 @@ tools/**/.deps
 tools/**/Makefile
 tools/genlab/config.log
 tools/genlab/config.status
+tools/genlab/autom4te.cache/
 
