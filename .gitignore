@@ -1,18 +1,18 @@
 **/__pycache__/
-#tools
 temp
 voices
-tools/bin/
-tools/SPTK-3.9/
-tools/WORLD/
-tools/genlab/bin/
 
 tools/**/*.o
 tools/**/*.a
 tools/**/*.0
 tools/**/.deps
 tools/**/Makefile
+tools/bin/
+
+tools/genlab/bin/
 tools/genlab/config.log
 tools/genlab/config.status
 tools/genlab/autom4te.cache/
 
+tools/WORLD/build
+tools/SPTK-3.9/
