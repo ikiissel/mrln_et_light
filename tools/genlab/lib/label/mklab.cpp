@@ -12,6 +12,10 @@ CFSWString DealWithText(CFSWString text) {
     
     
 	CFSWString res;
+  text.Replace(L"?\"", L", ", 1);
+  text.Replace(L"!\"", L", ", 1);
+  text.Replace(L".\"", L", ", 1);
+
 	text.Trim();
         CFSWString x = text;
         text.Replace(L"\n\n", L"\n", 1);

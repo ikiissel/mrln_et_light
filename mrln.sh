@@ -2,7 +2,7 @@
 
 #panin igaks juhuks, äkki on abiks#
 eval "$(conda shell.bash hook)"
-conda activate merlin_gpu
+conda activate mrln_et
 ###################################
 
 merlin_dir=$(pwd)
