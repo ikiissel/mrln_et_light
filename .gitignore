@@ -7,12 +7,14 @@ tools/**/*.a
 tools/**/*.0
 tools/**/.deps
 tools/**/Makefile
+tools/**/Makefile.in
 tools/bin/
 
 tools/genlab/bin/
 tools/genlab/config.log
 tools/genlab/config.status
 tools/genlab/autom4te.cache/
+tools/genlab/aclocal.m4
 
 tools/WORLD/build
 tools/SPTK-3.9/
