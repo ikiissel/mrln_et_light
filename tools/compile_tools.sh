@@ -7,6 +7,8 @@
 
 tools_dir=$(dirname $0)
 cd $tools_dir
+mkdir -p bin
+
 
 install_sptk=true
 install_world=true
@@ -30,10 +32,20 @@ if [ "$install_sptk" = true ]; then
     (
         cd SPTK-3.9;
         ./configure --prefix=$PWD/build;
-        make;
+        make CFLAGS='-fcommon';
         make install
     )
+    echo "deleting downloaded tar files..."
+    rm -rf $tools_dir/*.tar.gz
 
+    SPTK_BIN_DIR=bin/SPTK-3.9
+    mkdir -p $SPTK_BIN_DIR
+    cp SPTK-3.9/build/bin/* $SPTK_BIN_DIR/
+    if [ ! -f ${SPTK_BIN_DIR}/x2x ]; then
+        echo "Error installing SPTK tools! Try installing dependencies!!"
+        echo "sudo apt-get install csh"
+        exit 1
+    fi
 fi
 
 
@@ -46,6 +58,16 @@ if [ "$install_world" = true ]; then
         make analysis synth
         make clean
     )
+    WORLD_BIN_DIR=bin/WORLD
+    mkdir -p $WORLD_BIN_DIR
+    cp WORLD/build/analysis $WORLD_BIN_DIR/
+    cp WORLD/build/synth $WORLD_BIN_DIR/
+     
+
+    if [ ! -f ${WORLD_BIN_DIR}/analysis ]; then
+        echo "Error installing WORLD tools"
+        exit 1
+    fi
 fi
 
 
@@ -57,36 +79,10 @@ if [ "$install_genlab" = true ]; then
         test -x configure || autoreconf -vif        
         make
     )
+    
 fi
 
 
 
+echo "All tools successfully compiled!!"
 
-SPTK_BIN_DIR=bin/SPTK-3.9
-WORLD_BIN_DIR=bin/WORLD
-
-
-# 5. Copy binaries
-echo "deleting downloaded tar files..."
-rm -rf $tools_dir/*.tar.gz
-
-
-
-mkdir -p bin
-mkdir -p $SPTK_BIN_DIR
-mkdir -p $WORLD_BIN_DIR
-
-cp SPTK-3.9/build/bin/* $SPTK_BIN_DIR/
-cp WORLD/build/analysis $WORLD_BIN_DIR/
-cp WORLD/build/synth $WORLD_BIN_DIR/
-
-if [[ ! -f ${SPTK_BIN_DIR}/x2x ]]; then
-    echo "Error installing SPTK tools! Try installing dependencies!!"
-    echo "sudo apt-get install csh"
-    exit 1
-elif [[ ! -f ${WORLD_BIN_DIR}/analysis ]]; then
-    echo "Error installing WORLD tools"
-    exit 1
-else
-    echo "All tools successfully compiled!!"
-fi
