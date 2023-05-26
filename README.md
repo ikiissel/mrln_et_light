@@ -42,4 +42,13 @@ python ${merlin_dir}/src/run_merlin.py ${merlin_dir} ${temp_dir} ${voice} ${in_t
 
 - Hääled on saadaval https://www.eki.ee/~indrek/mrln_et Allalaaditud hääled tuleks lahti pakkida `voices/` kausta.
 
+## Integreerimine
 
+Integreerimiseks Python rakendustesse pakume moodulit `merlin.py`.
+
+```python
+from merlin import MerlinSynthesizer
+
+synthesizer = MerlinSynthesizer('eki_et_ind16k')
+wav = synthesizer.synthesize('Hello world!')
+```

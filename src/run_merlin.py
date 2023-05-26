@@ -41,13 +41,14 @@ import pickle
 import os, sys, errno
 import numpy.distutils.__config__
 
+sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+
 from frontend.label_normalisation import HTSLabelNormalisation
 from frontend.silence_remover import SilenceRemover
 from frontend.min_max_norm import MinMaxNormalisation
 from frontend.parameter_generation import ParameterGeneration
 from frontend.mean_variance_norm import MeanVarianceNorm
 from frontend.label_modifier import HTSLabelModification
-
 from utils.generate import generate_wav
 from utils.generate import run_process #vajalik labelite genereerimiseks
 
@@ -328,4 +329,3 @@ if __name__ == '__main__':
     run_process("sox " + TempDir + "/wav/*.wav " + out_wav)
 
     sys.exit(0)
-    
