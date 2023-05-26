@@ -5,6 +5,15 @@ import shutil
 from src.run_merlin import main_function
 from src.utils.generate import run_process #vajalik labelite genereerimiseks
 
+# MerlinSynthesizer(voice_name: str = '', merlin_path: str = '', temp_base: str = '')
+#   voice_name: name of the voice to use, if not specified here, the voice must be specified in the synthesize method
+#   merlin_path: path to the merlin directory, if not specified, the MERLIN_PATH environment variable will be used, if not specified, the directory of this file will be used
+#   temp_base: path to the directory where temporary files will be stored, if not specified, the MERLIN_TEMP_DIR environment variable will be used, if not specified, a directory named 'temp' will be created in the merlin directory
+#
+# synthesize(text: str, voice: str = '') -> bytes
+#   text: text to synthesize
+#   voice: name of the voice to use, if not specified here, the voice must be specified in the constructor
+#   returns: bytes of the wav file
 
 class MerlinSynthesizer:
     def __init__(self, voice_name: str = '', merlin_path: str = '', temp_base: str = ''):
