@@ -8,7 +8,7 @@ class MergeFeat(object):
 
     def __init__(self, lab_dim = 481, feat_dim = 1):
 
-        self.logger = logging.getLogger("labels")
+        self.logger = logging.getLogger("merlin.labels")
 
         self.lab_dim = lab_dim
         self.feat_dim = feat_dim

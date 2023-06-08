@@ -66,7 +66,7 @@ class HTSLabelNormalisation(LabelNormalisation):
 
     def __init__(self, question_file_name=None, add_frame_features=True, subphone_feats='full', continuous_flag=True):
 
-        logger = logging.getLogger("labels")
+        logger = logging.getLogger("merlin.labels")
 
         self.question_dict = {}
         self.ori_question_dict = {}
@@ -117,7 +117,7 @@ class HTSLabelNormalisation(LabelNormalisation):
         '''
         extracting duration binary features or numerical features.
         '''
-        logger = logging.getLogger("dur")
+        logger = logging.getLogger("merlin.dur")
         utt_number = len(ori_file_list)
         if utt_number != len(output_file_list):
             print("the number of input and output files should be the same!\n");
@@ -148,7 +148,7 @@ class HTSLabelNormalisation(LabelNormalisation):
             self.extract_dur_features(ori_file_list[i], output_file_list[i], label_type, feature_type, unit_size, feat_size)
 
     def extract_dur_features(self, in_file_name, out_file_name=None, label_type="state_align", feature_type=None, unit_size=None, feat_size=None):
-        logger = logging.getLogger("dur")
+        logger = logging.getLogger("merlin.dur")
         if label_type=="phone_align":
             A = self.extract_dur_from_phone_alignment_labels(in_file_name, feature_type, unit_size, feat_size)
         elif label_type=="state_align":
@@ -164,7 +164,7 @@ class HTSLabelNormalisation(LabelNormalisation):
             return A
 
     def extract_dur_from_state_alignment_labels(self, file_name, feature_type, unit_size, feat_size):
-        logger = logging.getLogger("dur")
+        logger = logging.getLogger("merlin.dur")
 
         state_number = 5
         dur_dim = state_number
@@ -306,7 +306,7 @@ class HTSLabelNormalisation(LabelNormalisation):
         return  dur_feature_matrix
 
     def extract_dur_from_phone_alignment_labels(self, file_name, feature_type, unit_size, feat_size):
-        logger = logging.getLogger("dur")
+        logger = logging.getLogger("merlin.dur")
 
         dur_dim = 1 # hard coded here 
 
@@ -368,7 +368,7 @@ class HTSLabelNormalisation(LabelNormalisation):
     def load_labels_with_phone_alignment(self, file_name, dur_file_name):
 
         # this is not currently used ??? -- it works now :D
-        logger = logging.getLogger("labels")
+        logger = logging.getLogger("merlin.labels")
         #logger.critical('unused function ???')
         #raise Exception
 
@@ -464,7 +464,7 @@ class HTSLabelNormalisation(LabelNormalisation):
     def load_labels_with_state_alignment(self, file_name):
         ## setting add_frame_features to False performs either state/phoneme level normalisation
 
-        logger = logging.getLogger("labels")
+        logger = logging.getLogger("merlin.labels")
 
         if self.add_frame_features:
             assert self.dimension == self.dict_size+self.frame_feature_size
@@ -826,7 +826,7 @@ class HTSLabelNormalisation(LabelNormalisation):
                 question_index += 1
         fid.close()
 
-        logger = logging.getLogger("labels")
+        logger = logging.getLogger("merlin.labels")
         logger.debug('loaded question set with %d questions' % len(question_dict))
 
         return  question_dict, ori_question_dict
@@ -834,7 +834,7 @@ class HTSLabelNormalisation(LabelNormalisation):
 
     def load_question_set_continous(self, qs_file_name):
 
-        logger = logging.getLogger("labels")
+        logger = logging.getLogger("merlin.labels")
 
         fid = open(qs_file_name)
         binary_qs_index = 0
@@ -933,7 +933,7 @@ class HTSDurationLabelNormalisation(HTSLabelNormalisation):
     def load_labels_with_state_alignment(self, file_name, add_frame_features=False):
         ## add_frame_features not used in HTSLabelNormalisation -- only in XML version
 
-        logger = logging.getLogger("labels")
+        logger = logging.getLogger("merlin.labels")
 
         assert self.dimension == self.dict_size
 

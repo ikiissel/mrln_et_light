@@ -62,7 +62,6 @@ class MerlinSynthesizer:
         f.close()
         
         shutil.rmtree(tempDir)
-        print("DONE:" + text)
         return wav
 
     def _run(self, voice, inFile, outFile, tempDir):

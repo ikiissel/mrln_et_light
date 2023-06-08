@@ -23,7 +23,7 @@ class SequentialDNN(object):
                  hidden_layer_sizes=[500, 500],
                  hidden_activation='tanh', output_activation='linear'):
 
-        logger = logging.getLogger("DNN initialization")
+        logger = logging.getLogger("merlin.DNN initialization")
 
         self.n_layers = len(hidden_layer_sizes)
         self.l1_reg = l1_reg
