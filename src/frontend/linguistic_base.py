@@ -57,7 +57,7 @@ class LinguisticBase(object):
     ##
     def perform_normalisation(self, ori_file_list, output_file_list, label_type="state_align", dur_file_list=None):
 
-        logger = logging.getLogger("perform_normalisation")
+        logger = logging.getLogger("merlin.perform_normalisation")
         logger.info('perform linguistic feature extraction')
         self.utterance_num = len(ori_file_list)
         if self.utterance_num != len(output_file_list):

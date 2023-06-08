@@ -62,7 +62,7 @@ class LabelComposer(object):
 
     def __init__(self):
 
-        self.logger = logging.getLogger("labels")
+        self.logger = logging.getLogger("merlin.labels")
         self.configuration = None
         self.label_dimension=None
 
@@ -153,7 +153,7 @@ class LabelComposer(object):
 
 if __name__ == '__main__':
 
-    logger = logging.getLogger("labels")
+    logger = logging.getLogger("merlin.labels")
     logger.setLevel(logging.DEBUG)
     # a console handler
     ch = logging.StreamHandler()

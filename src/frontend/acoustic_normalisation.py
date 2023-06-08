@@ -51,7 +51,7 @@ class CMPNormalisation(object):
 
     def load_cmp_file(self, file_name):
 
-        logger = logging.getLogger("acoustic_norm")
+        logger = logging.getLogger("merlin.acoustic_norm")
 
         htk_reader = HTK_Parm_IO()
         htk_reader.read_htk(file_name)
@@ -131,7 +131,7 @@ class CMPNormalisation(object):
     def produce_nn_cmp(self, in_file_list, out_file_list):
 
 
-        logger = logging.getLogger("acoustic_norm")
+        logger = logging.getLogger("merlin.acoustic_norm")
 
         delta_win = [-0.5, 0.0, 0.5]
         acc_win   = [1.0, -2.0, 1.0]

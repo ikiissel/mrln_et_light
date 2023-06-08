@@ -71,7 +71,7 @@ class ListDataProvider(object):
         :param shuffle: True/False. To indicate whether the file list will be shuffled. When loading data block by block, the data in the buffer will be shuffle no matter this value is True or False.
         """
 
-        self.logger = logging.getLogger("ListDataProvider")
+        self.logger = logging.getLogger("merlin.ListDataProvider")
 
         self.n_ins = n_ins
         self.n_outs = n_outs

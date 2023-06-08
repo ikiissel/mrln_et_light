@@ -67,7 +67,7 @@ class MixtureDensityNetwork(object):
                  n_component=1, beta_opt=False, use_rprop=0, rprop_init_update=0.001,
                  eff_sample_size=0.8, mean_log_det=-100.0):
 
-        logger = logging.getLogger("Multi-stream DNN initialization")
+        logger = logging.getLogger("merlin.Multi-stream DNN initialization")
 
         self.sigmoid_layers = []
         self.params = []

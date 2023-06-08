@@ -80,7 +80,7 @@ def feat_extraction_magphase(in_wav_dir, file_id_list, cfg, logger, b_multiproc=
 
 def acous_feat_extraction(in_wav_dir, file_id_list, cfg):
 
-    logger = logging.getLogger("acous_feat_extraction")
+    logger = logging.getLogger("merlin.acous_feat_extraction")
 
     ## MagPhase Vocoder:
     if cfg.vocoder_type=='MAGPHASE':
