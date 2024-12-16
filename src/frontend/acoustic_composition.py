@@ -59,7 +59,7 @@ class   AcousticComposition(AcousticBase):
         self.record_vuv    = False
     '''
     def make_equal_frames(self, in_file_list, ref_file_list, in_dimension_dict):
-        logger = logging.getLogger("acoustic_comp")
+        logger = logging.getLogger("merlin.acoustic_comp")
 
         logger.info('making equal number of lines...')
 
@@ -92,7 +92,7 @@ class   AcousticComposition(AcousticBase):
 
     def prepare_data(self, in_file_list_dict, out_file_list, in_dimension_dict, out_dimension_dict):
 
-        logger = logging.getLogger("acoustic_comp")
+        logger = logging.getLogger("merlin.acoustic_comp")
 
         stream_start_index = {}
         stream_dim_index = 0

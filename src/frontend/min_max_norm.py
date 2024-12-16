@@ -46,7 +46,7 @@ class MinMaxNormalisation(object):
     def __init__(self, feature_dimension, min_value = 0.01, max_value = 0.99, min_vector = 0.0, max_vector = 0.0, exclude_columns=[]):
 
         # this is the wrong name for this logger because we can also normalise labels here too
-        logger = logging.getLogger("acoustic_norm")
+        logger = logging.getLogger("merlin.acoustic_norm")
 
         self.target_min_value = min_value
         self.target_max_value = max_value
@@ -76,7 +76,7 @@ class MinMaxNormalisation(object):
 
     def load_min_max_values(self, label_norm_file):
 
-        logger = logging.getLogger("acoustic_norm")
+        logger = logging.getLogger("merlin.acoustic_norm")
 
         io_funcs = BinaryIOCollection()
         min_max_vector, frame_number = io_funcs.load_binary_file_frame(label_norm_file, 1)
@@ -88,7 +88,7 @@ class MinMaxNormalisation(object):
 
     def find_min_max_values(self, in_file_list):
 
-        logger = logging.getLogger("acoustic_norm")
+        logger = logging.getLogger("merlin.acoustic_norm")
 
         file_number = len(in_file_list)
         min_value_matrix = numpy.zeros((file_number, self.feature_dimension))
@@ -157,7 +157,7 @@ class MinMaxNormalisation(object):
 
     def denormalise_data(self, in_file_list, out_file_list):
 
-        logger = logging.getLogger("acoustic_norm")
+        logger = logging.getLogger("merlin.acoustic_norm")
 
         file_number = len(in_file_list)
         logger.info('MinMaxNormalisation.denormalise_data for %d files' % file_number)
@@ -207,7 +207,7 @@ class MinMaxNormalisation(object):
 
     def compute_mean(self, file_list):
 
-        logger = logging.getLogger("acoustic_norm")
+        logger = logging.getLogger("merlin.acoustic_norm")
 
         mean_vector = numpy.zeros((1, self.feature_dimension))
         all_frame_number = 0
@@ -232,7 +232,7 @@ class MinMaxNormalisation(object):
 
     def compute_std(self, file_list, mean_vector):
 
-        logger = logging.getLogger("acoustic_norm")
+        logger = logging.getLogger("merlin.acoustic_norm")
 
         std_vector = numpy.zeros((1, self.feature_dimension))
         all_frame_number = 0

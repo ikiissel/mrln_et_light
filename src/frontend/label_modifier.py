@@ -28,7 +28,7 @@ class HTSLabelModification(object):
 
     def __init__(self, silence_pattern=['*-#+*'], label_type="state_align"):
 
-        logger = logging.getLogger("labels")
+        logger = logging.getLogger("merlin.labels")
 
         self.silence_pattern = silence_pattern
         self.silence_pattern_size = len(silence_pattern)
@@ -62,7 +62,7 @@ class HTSLabelModification(object):
                 sys.exit(1)
 
     def modify_dur_from_state_alignment_labels(self, label_file_name, gen_dur_file_name, gen_lab_file_name):
-        logger = logging.getLogger("dur")
+        logger = logging.getLogger("merlin.dur")
 
         state_number = self.state_number
         dur_dim = state_number
@@ -127,7 +127,7 @@ class HTSLabelModification(object):
         logger.debug('modifed label with predicted duration of %d frames x %d features' % dur_features.shape )
 
     def modify_dur_from_phone_alignment_labels(self, label_file_name, gen_dur_file_name, gen_lab_file_name):
-        logger = logging.getLogger("dur")
+        logger = logging.getLogger("merlin.dur")
 
         dur_dim = 1
 

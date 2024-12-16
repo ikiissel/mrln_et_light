@@ -57,7 +57,7 @@ class   AcousticBase(object):
         self.delta_win = delta_win
         self.acc_win   = acc_win
 
-        self.logger = logging.getLogger("acoustic_data")
+        self.logger = logging.getLogger("merlin.acoustic_data")
 
     '''
     in_file_list_dict: if there are multiple acoustic features,

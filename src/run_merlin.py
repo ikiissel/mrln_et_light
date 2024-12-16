@@ -227,63 +227,62 @@ def main_function(AcousticModel, full_path_dir, TempDir, voice_name):
            print('Failed to create generation directory %s' % gen_dir)
            raise
 		
-    if True: # Sest ei viitsi neid tühikuid paika ajada
-        # simple HTS labels        
-        label_normaliser = HTSLabelNormalisation(question_file_name, add_frame_features, subphone_feats)        
-        label_normaliser.perform_normalisation(in_label_align_file_list, binary_label_file_list, LabelType)
+    # simple HTS labels        
+    label_normaliser = HTSLabelNormalisation(question_file_name, add_frame_features, subphone_feats)        
+    label_normaliser.perform_normalisation(in_label_align_file_list, binary_label_file_list, LabelType)
 
-        remover = SilenceRemover(lab_dim, SilencePattern, LabelType, remove_frame_features, subphone_feats)
-        remover.remove_silence(binary_label_file_list, in_label_align_file_list, nn_label_file_list)
+    remover = SilenceRemover(lab_dim, SilencePattern, LabelType, remove_frame_features, subphone_feats)
+    remover.remove_silence(binary_label_file_list, in_label_align_file_list, nn_label_file_list)
 
-        min_max_normaliser = MinMaxNormalisation(lab_dim, min_value, max_value)
-        min_max_normaliser.load_min_max_values(label_norm_file)
+    min_max_normaliser = MinMaxNormalisation(lab_dim, min_value, max_value)
+    min_max_normaliser.load_min_max_values(label_norm_file)
 
-        ### enforce silence such that the normalization runs without removing silence: only for final synthesis
-        #if cfg.GenTestList and cfg.enforce_silence:
-        if AcousticModel: 
-            min_max_normaliser.normalise_data(binary_label_file_list, nn_label_file_list)
-        else:
-            min_max_normaliser.normalise_data(nn_label_file_list, nn_label_file_list)
-        # ******************** Normaliseerimise lõpp **************************************
+    ### enforce silence such that the normalization runs without removing silence: only for final synthesis
+    #if cfg.GenTestList and cfg.enforce_silence:
+    if AcousticModel: 
+        min_max_normaliser.normalise_data(binary_label_file_list, nn_label_file_list)
+    else:
+        min_max_normaliser.normalise_data(nn_label_file_list, nn_label_file_list)
+    # ******************** Normaliseerimise lõpp **************************************
+    
+    gen_file_list = prepare_file_path_list(TestIdList, gen_dir, '.cmp')
+
+    dnn_generation(nn_label_file_list, NnetsFileName, lab_dim, CmpDim, gen_file_list)
+    #
+    #print('denormalising generated output using method %s' % cfg.output_feature_normalisation)
+    #norm_info_file = file_paths.norm_info_file
+    
+    fid = open(NormInfoFile, 'rb')
+    cmp_min_max = numpy.fromfile(fid, dtype=numpy.float32)
+    fid.close()
+    cmp_min_max = cmp_min_max.reshape((2, -1))
+    cmp_min_vector = cmp_min_max[0, ]
+    cmp_max_vector = cmp_min_max[1, ]
+
+
+    #output_feature_normalisation == 'MVN'
+    denormaliser = MeanVarianceNorm(feature_dimension = CmpDim)
+    denormaliser.feature_denormalisation(gen_file_list, gen_file_list, cmp_min_vector, cmp_max_vector)
+
+    if AcousticModel:
+        ##perform MLPG to smooth parameter trajectory
+        ## lf0 is included, the output features much have vuv.
+        generator = ParameterGeneration(gen_wav_features = GenWavFeatures, enforce_silence = True)
+        generator.acoustic_decomposition(gen_file_list, CmpDim, OutDimensionDict, FileExtensionDict, VarFileDict, SilencePattern, lab_dir, do_MLPG=True)
+        generate_wav(gen_dir, TestIdList, SPTK, WORLD)
+
+    else:
+        ### Perform duration normalization(min. state dur set to 1) ###
+        gen_dur_list   = prepare_file_path_list(TestIdList, gen_dir, DurExt)
+        gen_label_list = prepare_file_path_list(TestIdList, gen_dir, LabExt)
+        in_gen_label_align_file_list = prepare_file_path_list(TestIdList, lab_dir, LabExt, False)
+
+        generator = ParameterGeneration(gen_wav_features = GenWavFeatures)
+        generator.duration_decomposition(gen_file_list, CmpDim, OutDimensionDict, FileExtensionDict)
         
-        gen_file_list = prepare_file_path_list(TestIdList, gen_dir, '.cmp')
-
-        dnn_generation(nn_label_file_list, NnetsFileName, lab_dim, CmpDim, gen_file_list)
-        #
-        #print('denormalising generated output using method %s' % cfg.output_feature_normalisation)
-        #norm_info_file = file_paths.norm_info_file
-        
-        fid = open(NormInfoFile, 'rb')
-        cmp_min_max = numpy.fromfile(fid, dtype=numpy.float32)
-        fid.close()
-        cmp_min_max = cmp_min_max.reshape((2, -1))
-        cmp_min_vector = cmp_min_max[0, ]
-        cmp_max_vector = cmp_min_max[1, ]
-
-
-        #output_feature_normalisation == 'MVN'
-        denormaliser = MeanVarianceNorm(feature_dimension = CmpDim)
-        denormaliser.feature_denormalisation(gen_file_list, gen_file_list, cmp_min_vector, cmp_max_vector)
-
-        if AcousticModel:
-            ##perform MLPG to smooth parameter trajectory
-            ## lf0 is included, the output features much have vuv.
-            generator = ParameterGeneration(gen_wav_features = GenWavFeatures, enforce_silence = True)
-            generator.acoustic_decomposition(gen_file_list, CmpDim, OutDimensionDict, FileExtensionDict, VarFileDict, SilencePattern, lab_dir, do_MLPG=True)
-            generate_wav(gen_dir, TestIdList, SPTK, WORLD)
-
-        else:
-            ### Perform duration normalization(min. state dur set to 1) ###
-            gen_dur_list   = prepare_file_path_list(TestIdList, gen_dir, DurExt)
-            gen_label_list = prepare_file_path_list(TestIdList, gen_dir, LabExt)
-            in_gen_label_align_file_list = prepare_file_path_list(TestIdList, lab_dir, LabExt, False)
-
-            generator = ParameterGeneration(gen_wav_features = GenWavFeatures)
-            generator.duration_decomposition(gen_file_list, CmpDim, OutDimensionDict, FileExtensionDict)
-            
-            #cmp + dur + lab(bin) + binlab = lab(aegadega)
-            label_modifier = HTSLabelModification(silence_pattern = SilencePattern, label_type = LabelType)
-            label_modifier.modify_duration_labels(in_gen_label_align_file_list, gen_dur_list, gen_label_list)            
+        #cmp + dur + lab(bin) + binlab = lab(aegadega)
+        label_modifier = HTSLabelModification(silence_pattern = SilencePattern, label_type = LabelType)
+        label_modifier.modify_duration_labels(in_gen_label_align_file_list, gen_dur_list, gen_label_list)            
 
 
 

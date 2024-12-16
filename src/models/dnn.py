@@ -67,7 +67,7 @@ class DNN(object):
                  hidden_activation='tanh', output_activation='linear',
                  use_rprop=0, rprop_init_update=0.001):
 
-        logger = logging.getLogger("DNN initialization")
+        logger = logging.getLogger("merlin.DNN initialization")
 
         self.sigmoid_layers = []
         self.params = []

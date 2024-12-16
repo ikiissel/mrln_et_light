@@ -43,7 +43,7 @@ class DeepEncoderDecoderNetwork(object):
         :param dropout_rate: probability of dropout, a float number between 0 and 1.
         """
 
-        logger = logging.getLogger("DNN initialization")
+        logger = logging.getLogger("merlin.DNN initialization")
 
         self.n_in = int(n_in)
         self.n_out = int(n_out)
@@ -234,7 +234,7 @@ class DeepEncoderDecoderNetwork(object):
 
         """
 
-        logger = logging.getLogger("DNN initialization")
+        logger = logging.getLogger("merlin.DNN initialization")
 
         (train_set_x, train_set_y) = train_shared_xy
         (valid_set_x, valid_set_y) = valid_shared_xy
